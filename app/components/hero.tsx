@@ -277,7 +277,7 @@ const RatingsFeatureSection = () => {
                   </div>
                   <Link
                     href="/hof/ratings"
-                    className="text-sm text-blue-400 hover:underline"
+                    className="text-sm text-gray-400 hover:underline"
                   >
                     See All →
                   </Link>
