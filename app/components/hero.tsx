@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import heroImage from "@/app/assets/logo.png";
+import heroImage from "@/app/assets/hero.png";
+import { IoIosArrowRoundForward } from "react-icons/io";
 
 const inchesToFeetInches = (heightCode: number) => {
   const feet = Math.floor(heightCode / 100);
@@ -131,16 +132,46 @@ const RatingsFeatureSection = () => {
     {
       id: "4",
       name: "Tavien St. Clair",
-      school: "Bellefontaine",
+      school: " Bellefontaine",
       position: "QB",
     },
     { id: "5", name: "Dakorien Moore", school: "Duncanville", position: "WR" },
     { id: "6", name: "Devin Sanchez", school: "North Shore", position: "CB" },
+    { id: "7", name: "Jordan Marshall", school: "Oak Park", position: "RB" },
+    { id: "8", name: "Jaden Davis", school: "Providence Day", position: "QB" },
+    { id: "9", name: "Kobe Black", school: "Waco Connally", position: "CB" },
+    { id: "10", name: "Kendrick Law", school: "John Ehret", position: "WR" },
+  ];
+  const hofPlayers = [
+    {
+      id: "1",
+      name: "Bryce Underwood",
+      school: "Belleville HS",
+      position: "QB",
+    },
+    { id: "2", name: "Keelon Russell", school: "Duncanville", position: "QB" },
+    {
+      id: "3",
+      name: "Elijah Griffin",
+      school: "Savannah Christian",
+      position: "DL",
+    },
+    {
+      id: "4",
+      name: "Tavien St. Clair",
+      school: " Bellefontaine",
+      position: "QB",
+    },
+    { id: "5", name: "Dakorien Moore", school: "Duncanville", position: "WR" },
+    { id: "6", name: "Devin Sanchez", school: "North Shore", position: "CB" },
+    { id: "7", name: "Jordan Marshall", school: "Oak Park", position: "RB" },
+    { id: "8", name: "Jaden Davis", school: "Providence Day", position: "QB" },
+    { id: "9", name: "Kobe Black", school: "Waco Connally", position: "CB" },
+    { id: "10", name: "Kendrick Law", school: "John Ehret", position: "WR" },
   ];
 
   const featuredStory = {
     title: "NFL's Hidden Gems: Under-the-Radar Prospects Turning Heads",
-
     url: "/feature/nfl-hidden-gems",
   };
 
@@ -160,8 +191,8 @@ const RatingsFeatureSection = () => {
   ];
 
   return (
-    <section className="bg-black py-6">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-12">
+    <section className="bg-black py-4 sm:py-6">
+      <div className="container mx-auto px-4 grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-4">
         {/* Sidebar Ratings */}
         <motion.div
           initial={{ x: -100, opacity: 0 }}
@@ -169,11 +200,13 @@ const RatingsFeatureSection = () => {
           transition={{ duration: 1 }}
           className="md:col-span-3"
         >
-          <div className="p-6 flex flex-col gap-3">
-            <p className="text-md font-normal text-[#98B0FF]">Latest Ratings</p>
+          <div className="p-4 sm:p-6 flex flex-col gap-3">
+            <p className="text-sm sm:text-md font-normal text-[#98B0FF]">
+              Latest Ratings
+            </p>
             {/* Tabs */}
             <ul
-              className="text-sm font-medium text-center text-gray-300 shadow flex divide-gray-600 overflow-clip"
+              className="text-xs sm:text-sm font-medium text-center text-gray-300 shadow flex flex-row divide-gray-600 overflow-clip"
               role="tablist"
             >
               {tabs.map((tab) => (
@@ -183,112 +216,129 @@ const RatingsFeatureSection = () => {
                     type="button"
                     role="tab"
                     aria-selected={activeTab === tab.id}
-                    className={`inline-block w-full p-4 border-rhover:border-gray-600 focus:outline-none hover:cursor-pointer ${
+                    className={`inline-flex items-center justify-between w-full p-3 sm:p-4 hover:border-gray-600 focus:outline-none hover:cursor-pointer ${
                       activeTab === tab.id
-                        ? "text-white bg-[#272526] "
+                        ? "text-white bg-[#272526]"
                         : "text-gray-500 hover:text-white hover:bg-gray-600"
                     } transition-colors duration-150`}
                   >
-                    {tab.label}
+                    <span>{tab.label}</span>
                   </button>
                 </li>
               ))}
             </ul>
 
             {/* Tab Content */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 sm:gap-4">
               {activeTab === "prep_ratings" &&
                 prepPlayers.map((p) => (
                   <Link
                     key={p.id}
                     href={`/prep/bio/${p.id}`}
-                    className="group flex items-center gap-3"
+                    className="group flex items-center gap-3 relative"
                   >
-                    <div className="inline-flex w-10 h-10 items-center justify-center rounded-full group-hover:bg-gray-500  transition-all duration-300">
-                      <span className="font-light text-xl group-hover:text-black text-gray-500">
+                    <div className="inline-flex w-8 h-8 sm:w-10 sm:h-10 items-center justify-center rounded-full group-hover:bg-gray-500 transition-all duration-300">
+                      <span className="font-light text-lg sm:text-xl group-hover:text-black text-gray-500">
                         {p.id}
                       </span>
                     </div>
-                    <div>
-                      <div className="text-gray-200 group-hover:text-white font-medium">
+                    <div className="flex-1">
+                      <div className="text-gray-200 group-hover:text-white font-medium text-sm sm:text-base">
                         {p.name}
                       </div>
-                      <div className="text-gray-400 group-hover:text-gray-300 text-sm">
+                      <div className="text-gray-400 group-hover:text-gray-300 text-xs sm:text-sm">
                         {p.school}, {p.position}
                       </div>
                     </div>
+                    <IoIosArrowRoundForward className="absolute right-0 text-3xl sm:text-4xl text-gray-500 group-hover:text-white" />
                   </Link>
                 ))}
 
               {activeTab === "college_ratings" &&
                 (cfbLoading ? (
-                  <div className="text-gray-400 italic">Loading…</div>
+                  <div className="text-gray-400 italic text-sm">Loading…</div>
                 ) : (
                   cfbPlayers.map((p) => (
                     <Link
                       key={p.id}
                       href={`/cfb/bio/${p.id}`}
-                      className="group flex items-center gap-3 hover:bg-gray-700 transition rounded hover:ring-8 hover:ring-gray-700"
+                      className="group flex items-center gap-3 relative"
                     >
-                      <div className="inline-flex w-10 h-10 items-center justify-center rounded-full bg-gray-700 group-hover:bg-gray-600">
-                        <span className="font-bold text-gray-300">{p.id}</span>
+                      <div className="inline-flex w-8 h-8 sm:w-10 sm:h-10 items-center justify-center rounded-full group-hover:bg-gray-500 transition-all duration-300">
+                        <span className="font-light text-lg sm:text-xl group-hover:text-black text-gray-500">
+                          {p.id}
+                        </span>
                       </div>
-                      <div>
-                        <div className="text-gray-200 group-hover:text-white font-medium">
+                      <div className="flex-1">
+                        <div className="text-gray-200 group-hover:text-white font-medium text-sm sm:text-base">
                           {p.name}
                         </div>
-                        <div className="text-gray-400 group-hover:text-gray-300 text-sm">
+                        <div className="text-gray-400 group-hover:text-gray-300 text-xs sm:text-sm">
                           {p.team}, {p.position}
                         </div>
                       </div>
+                      <IoIosArrowRoundForward className="absolute right-0 text-3xl sm:text-4xl text-gray-500 group-hover:text-white" />
                     </Link>
                   ))
                 ))}
 
               {activeTab === "nfl_ratings" &&
                 (nflLoading ? (
-                  <div className="text-gray-400 italic">Loading…</div>
+                  <div className="text-gray-400 italic text-sm">Loading…</div>
                 ) : (
                   nflPlayers.map((p) => (
                     <Link
                       key={p.id}
                       href={`/nfl/bio/${p.id}`}
-                      className="group flex items-center gap-3 hover:bg-gray-700 transition rounded hover:ring-8 hover:ring-gray-700"
+                      className="group flex items-center gap-3 relative"
                     >
-                      <div className="inline-flex w-10 h-10 items-center justify-center rounded-full bg-gray-700 group-hover:bg-gray-600">
-                        <span className="font-bold text-gray-300">{p.id}</span>
+                      <div className="inline-flex w-8 h-8 sm:w-10 sm:h-10 items-center justify-center rounded-full group-hover:bg-gray-500 transition-all duration-300">
+                        <span className="font-light text-lg sm:text-xl group-hover:text-black text-gray-500">
+                          {p.id}
+                        </span>
                       </div>
-                      <div>
-                        <div className="text-gray-200 group-hover:text-white font-medium">
+                      <div className="flex-1">
+                        <div className="text-gray-200 group-hover:text-white font-medium text-sm sm:text-base">
                           {p.name}
                         </div>
-                        <div className="text-gray-400 group-hover:text-gray-300 text-sm">
+                        <div className="text-gray-400 group-hover:text-gray-300 text-xs sm:text-sm">
                           {p.team}, {p.position}, {p.rating}
                         </div>
                       </div>
+                      <IoIosArrowRoundForward className="absolute right-0 text-3xl sm:text-4xl text-gray-500 group-hover:text-white" />
                     </Link>
                   ))
                 ))}
 
-              {activeTab === "hof_ratings" && (
-                <div>
-                  <div className="font-bold text-gray-200 mb-2">
-                    HOF Ratings by Position
-                  </div>
+              {activeTab === "hof_ratings" &&
+                hofPlayers.map((p) => (
                   <Link
-                    href="/hof/ratings"
-                    className="text-sm text-gray-400 hover:underline"
+                    key={p.id}
+                    href={`/hof/bio/${p.id}`}
+                    className="group flex items-center gap-3 relative"
                   >
-                    See All →
+                    <div className="inline-flex w-8 h-8 sm:w-10 sm:h-10 items-center justify-center rounded-full group-hover:bg-gray-500 transition-all duration-300">
+                      <span className="font-light text-lg sm:text-xl group-hover:text-black text-gray-500">
+                        {p.id}
+                      </span>
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-gray-200 group-hover:text-white font-medium text-sm sm:text-base">
+                        {p.name}
+                      </div>
+                      <div className="text-gray-400 group-hover:text-gray-300 text-xs sm:text-sm">
+                        {p.school}, {p.position}
+                      </div>
+                    </div>
+                    <IoIosArrowRoundForward className="absolute right-0 text-3xl sm:text-4xl text-gray-500 group-hover:text-white" />
                   </Link>
-                </div>
-              )}
+                ))}
             </div>
           </div>
         </motion.div>
 
         {/* Center Story Image */}
-        <div className="md:col-span-6 w-[500px] ">
+        <div className="md:col-span-6 flex flex-col justify-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -297,19 +347,23 @@ const RatingsFeatureSection = () => {
           >
             <Link href={featuredStory.url}>
               <div
-                className="h-[500px]  bg-cover bg-center"
+                className="h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] bg-cover bg-center"
                 style={{ backgroundImage: `url(${heroImage.src})` }}
               >
-                <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/80 via-black/50 to-transparent px-6 py-4">
-                  <h2 className="text-xl font-bold text-white">
+                <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-0 px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 sm:mb-5">
+                  <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold text-white">
                     {featuredStory.title}
                   </h2>
-                  <p className="text-sm text-blue-400 mt-1">
-                    Continue reading →
-                  </p>
                 </div>
               </div>
             </Link>
+            <button
+              className="flex text-sm sm:text-base md:text-lg text-white mt-2 sm:mt-3 md:mt-4 cursor-pointer items-center justify-start hover:text-gray-500 transition-colors duration-300 py-2 sm:py-3 pl-3 sm:pl-4"
+              onClick={() => (window.location.href = featuredStory.url)}
+            >
+              Continue reading
+              <IoIosArrowRoundForward className="text-xl sm:text-2xl md:text-3xl ml-2" />
+            </button>
           </motion.div>
         </div>
 
@@ -319,15 +373,27 @@ const RatingsFeatureSection = () => {
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1 }}
-            className="bg-gray-800 rounded-lg p-6 flex flex-col gap-4"
+            className="rounded-lg p-4 sm:p-6 flex flex-col gap-3 sm:gap-4"
           >
+            <p className="text-sm sm:text-md font-normal text-[#98B0FF] ml-2">
+              Popular News
+            </p>
+
             {featuredArticles.map((a) => (
-              <Link key={a.id} href={a.url} className="group">
-                <div className="flex justify-between items-center text-gray-200 group-hover:text-white font-medium">
-                  <span>{a.title}</span>
-                  <span className="text-blue-400">→</span>
+              <Link
+                key={a.id}
+                href={a.url}
+                className="group m-2 border-b border-gray-700 pb-2 sm:pb-3 transition-colors duration-300"
+              >
+                <div className="flex justify-between items-center text-gray-200 group-hover:text-gray-400 font-medium transition-colors duration-300">
+                  <span className="text-sm sm:text-lg md:text-xl">
+                    {a.title}
+                  </span>
+                  <IoIosArrowRoundForward className="text-3xl sm:text-4xl md:text-5xl" />
                 </div>
-                <div className="text-sm text-gray-400 mt-1">2h ago</div>
+                <div className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-2">
+                  2h ago
+                </div>
               </Link>
             ))}
           </motion.div>
@@ -337,4 +403,4 @@ const RatingsFeatureSection = () => {
   );
 };
 
-export default RatingsFeatureSection;
+export default React.memo(RatingsFeatureSection);
