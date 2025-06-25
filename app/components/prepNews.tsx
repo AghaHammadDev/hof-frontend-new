@@ -25,15 +25,14 @@ const newsSlides = [
 );
 
 // Sidebar News (30)
-const sidebarNews = Array.from({ length: 15 }, (_, i) => ({
+const sidebarNews = Array.from({ length: 30 }, (_, i) => ({
   id: i + 1,
-  image: cfb3.src,
+  image: cfb5.src,
   title: `Sidebar lorem ipsum dolor sit amet, consectetur  elit ${i + 1}`,
   timeAgo: `${i + 1} days ago`,
   number: `${i + 1}`,
 }));
-
-const CFBNews = () => {
+const PrepNews = () => {
   const [mainSlide, setMainSlide] = useState(0);
   const [sidebarPage, setSidebarPage] = useState(0);
 
@@ -45,7 +44,6 @@ const CFBNews = () => {
     setMainSlide((prev) => (prev === newsSlides.length - 1 ? 0 : prev + 1));
   };
 
-  // Sidebar now only displays 5 items per page, across 3 pages
   const handleSidebarPrev = () => {
     setSidebarPage((prev) => (prev === 0 ? 2 : prev - 1));
   };
@@ -86,7 +84,7 @@ const CFBNews = () => {
           {/* Main News */}
           <div className="flex-1">
             <div className="flex items-center justify-between mb-6">
-              <h1 className="text-2xl font-bold text-black">CFB News</h1>
+              <h1 className="text-2xl font-bold text-black">Prep News</h1>
               <div className="flex items-center">
                 <button onClick={handleMainPrev} className="p-1 ">
                   <IoIosArrowRoundBack className="w-8 h-8 text-black hover:text-[#1d48f2] transition-colors duration-300 ease-in-out " />
@@ -143,7 +141,7 @@ const CFBNews = () => {
           {/* Sidebar */}
           <div className="w-full lg:w-80 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-black">CFB Notes</h2>
+              <h2 className="text-lg font-semibold text-black">Prep Notes</h2>
               <div className="flex items-center">
                 <button onClick={handleSidebarPrev} className="p-1">
                   <IoIosArrowRoundBack className="w-6 h-6 text-black hover:text-[#1d48f2]" />
@@ -210,4 +208,4 @@ const CFBNews = () => {
   );
 };
 
-export default CFBNews;
+export default PrepNews;

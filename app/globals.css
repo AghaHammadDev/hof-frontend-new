@@ -50,3 +50,10 @@ body {
 .div6 {
   grid-area: 2 / 2 / 3 / 3;
 }
+/* Avoids conflict with other .parent/.div1 */
+.nfl-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 1rem; 
+}

@@ -10,30 +10,30 @@ import cfb5 from "../assets/cfb5.png";
 import cfb6 from "../assets/cfb6.png";
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
 
-// Main Slides
+// Main Slides (7 items per slide)
 const newsSlides = [
-  [cfb1, cfb2, cfb3, cfb4, cfb5, cfb6],
-  [cfb2, cfb3, cfb4, cfb5, cfb6, cfb1],
-  [cfb3, cfb4, cfb5, cfb6, cfb1, cfb2],
-  [cfb4, cfb5, cfb6, cfb1, cfb2, cfb3],
+  [cfb1, cfb2, cfb3, cfb4, cfb5, cfb6, cfb1],
+  [cfb2, cfb3, cfb4, cfb5, cfb6, cfb1, cfb2],
+  [cfb3, cfb4, cfb5, cfb6, cfb1, cfb2, cfb3],
+  [cfb4, cfb5, cfb6, cfb1, cfb2, cfb3, cfb4],
 ].map((set, i) =>
   set.map((image, j) => ({
-    id: i * 6 + j + 1,
+    id: i * 7 + j + 1,
     image,
     title: `Slide ${i + 1} - News ${j + 1}`,
   }))
 );
 
-// Sidebar News (30)
+// Sidebar News (15)
 const sidebarNews = Array.from({ length: 15 }, (_, i) => ({
   id: i + 1,
   image: cfb3.src,
-  title: `Sidebar lorem ipsum dolor sit amet, consectetur  elit ${i + 1}`,
+  title: `Sidebar lorem ipsum dolor sit amet, consectetur elit ${i + 1}`,
   timeAgo: `${i + 1} days ago`,
   number: `${i + 1}`,
 }));
 
-const CFBNews = () => {
+const HOFNews = () => {
   const [mainSlide, setMainSlide] = useState(0);
   const [sidebarPage, setSidebarPage] = useState(0);
 
@@ -45,7 +45,6 @@ const CFBNews = () => {
     setMainSlide((prev) => (prev === newsSlides.length - 1 ? 0 : prev + 1));
   };
 
-  // Sidebar now only displays 5 items per page, across 3 pages
   const handleSidebarPrev = () => {
     setSidebarPage((prev) => (prev === 0 ? 2 : prev - 1));
   };
@@ -88,8 +87,8 @@ const CFBNews = () => {
             <div className="flex items-center justify-between mb-6">
               <h1 className="text-2xl font-bold text-black">CFB News</h1>
               <div className="flex items-center">
-                <button onClick={handleMainPrev} className="p-1 ">
-                  <IoIosArrowRoundBack className="w-8 h-8 text-black hover:text-[#1d48f2] transition-colors duration-300 ease-in-out " />
+                <button onClick={handleMainPrev} className="p-1">
+                  <IoIosArrowRoundBack className="w-8 h-8 text-black hover:text-[#1d48f2] transition-colors duration-300 ease-in-out" />
                 </button>
                 <div className="flex space-x-2 mx-2">
                   {newsSlides.map((_, i) => (
@@ -102,13 +101,13 @@ const CFBNews = () => {
                     ></div>
                   ))}
                 </div>
-                <button onClick={handleMainNext} className="p-1 ">
+                <button onClick={handleMainNext} className="p-1">
                   <IoIosArrowRoundForward className="w-8 h-8 text-black hover:text-[#1d48f2] transition-colors duration-300 ease-in-out" />
                 </button>
               </div>
             </div>
 
-            {/* Responsive Grid */}
+            {/* Grid Layout with Gap */}
             <AnimatePresence mode="popLayout">
               <motion.div
                 key={mainSlide}
@@ -116,12 +115,12 @@ const CFBNews = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.5 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 auto-rows-[300px] lg:auto-rows-[300px]"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 auto-rows-[300px] lg:auto-rows-[300px]"
               >
-                <div className="lg:row-span-2">
-                  {renderNewsCard(newsSlides[mainSlide][0], 600)}
+                <div className="sm:col-span-2 lg:col-start-1 lg:col-end-3 lg:row-span-1">
+                  {renderNewsCard(newsSlides[mainSlide][0], 300)}
                 </div>
-                <div className="sm:col-span-2 lg:col-start-2 lg:col-end-4 lg:row-span-1">
+                <div className="lg:col-start-3 lg:row-span-1">
                   {renderNewsCard(newsSlides[mainSlide][1], 300)}
                 </div>
                 <div className="lg:col-start-4 lg:row-span-1">
@@ -136,6 +135,9 @@ const CFBNews = () => {
                 <div className="lg:col-start-2 lg:row-start-2 lg:row-span-1">
                   {renderNewsCard(newsSlides[mainSlide][5], 300)}
                 </div>
+                <div className="lg:col-start-1 lg:row-start-2 lg:row-span-1">
+                  {renderNewsCard(newsSlides[mainSlide][6], 300)}
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -143,7 +145,9 @@ const CFBNews = () => {
           {/* Sidebar */}
           <div className="w-full lg:w-80 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-black">CFB Notes</h2>
+              <h2 className="text-lg font-semibold text-black">
+                CFB News & Notes
+              </h2>
               <div className="flex items-center">
                 <button onClick={handleSidebarPrev} className="p-1">
                   <IoIosArrowRoundBack className="w-6 h-6 text-black hover:text-[#1d48f2]" />
@@ -183,7 +187,7 @@ const CFBNews = () => {
                       <img
                         src={news.image}
                         alt={news.title}
-                        className="w-20 h-16 object-cover "
+                        className="w-20 h-16 object-cover"
                       />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -210,4 +214,4 @@ const CFBNews = () => {
   );
 };
 
-export default CFBNews;
+export default HOFNews;
