@@ -10,8 +10,23 @@ import cfb5 from "../assets/cfb5.png";
 import cfb6 from "../assets/cfb6.png";
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
 
+// Type definitions
+interface NewsItem {
+  id: number;
+  image: string;
+  title: string;
+}
+
+interface SidebarNewsItem {
+  id: number;
+  image: string;
+  title: string;
+  timeAgo: string;
+  number: string;
+}
+
 // Main Slides
-const newsSlides = [
+const newsSlides: NewsItem[][] = [
   [cfb1, cfb2, cfb3, cfb4, cfb5, cfb6],
   [cfb2, cfb3, cfb4, cfb5, cfb6, cfb1],
   [cfb3, cfb4, cfb5, cfb6, cfb1, cfb2],
@@ -19,13 +34,13 @@ const newsSlides = [
 ].map((set, i) =>
   set.map((image, j) => ({
     id: i * 6 + j + 1,
-    image,
+    image: image.src,
     title: `Slide ${i + 1} - News ${j + 1}`,
   }))
 );
 
-// Sidebar News (30)
-const sidebarNews = Array.from({ length: 15 }, (_, i) => ({
+// Sidebar News (15)
+const sidebarNews: SidebarNewsItem[] = Array.from({ length: 15 }, (_, i) => ({
   id: i + 1,
   image: cfb3.src,
   title: `Sidebar lorem ipsum dolor sit amet, consectetur  elit ${i + 1}`,
@@ -59,7 +74,7 @@ const CFBNews = () => {
     sidebarPage * 5 + 5
   );
 
-  const renderNewsCard = (news: any, height = 300) => (
+  const renderNewsCard = (news: NewsItem, height = 300) => (
     <div className="relative group cursor-pointer h-full w-full">
       <div className="relative overflow-hidden w-full h-full">
         <Image
@@ -180,9 +195,11 @@ const CFBNews = () => {
                     className="flex items-center space-x-4 group cursor-pointer border-b border-gray-200 pb-4"
                   >
                     <div className="flex-shrink-0">
-                      <img
+                      <Image
                         src={news.image}
                         alt={news.title}
+                        width={80}
+                        height={64}
                         className="w-20 h-16 object-cover "
                       />
                     </div>

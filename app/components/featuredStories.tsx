@@ -38,7 +38,7 @@ const images = [
 export default function FeaturedStories() {
   const [page, setPage] = useState(0); // Desktop pagination
   const [currentIndex, setCurrentIndex] = useState(0); // Mobile/tablet index
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [, setHoveredIndex] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
   const [visibleCount, setVisibleCount] = useState(5);

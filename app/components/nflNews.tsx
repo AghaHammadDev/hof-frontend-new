@@ -1,13 +1,27 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
 import cfb1 from "@/app/assets/cfb1.png";
 import cfb2 from "../assets/cfb2.png";
 import cfb3 from "../assets/cfb3.png";
 import cfb4 from "../assets/cfb4.png";
 import cfb5 from "../assets/cfb5.png";
 import cfb6 from "../assets/cfb6.png";
+
+// Type definitions
+interface FeatureArticle {
+  id: number;
+  image: string;
+  title: string;
+  url: string;
+}
+
+interface SidebarNews {
+  id: number;
+  title: string;
+  timeAgo: string;
+  url: string;
+}
 
 const tabs = [
   "Popular Today",
@@ -16,7 +30,7 @@ const tabs = [
   "Editor's Choice",
 ];
 
-const tabContent = [
+const tabContent: FeatureArticle[][] = [
   [cfb1, cfb2, cfb3, cfb4],
   [cfb2, cfb3, cfb4, cfb5],
   [cfb3, cfb4, cfb5, cfb6],
@@ -24,13 +38,13 @@ const tabContent = [
 ].map((set, i) =>
   set.map((image, j) => ({
     id: i * 4 + j + 1,
-    image,
+    image: image.src, // Use the src property of the StaticImageData object
     title: `${tabs[i]} Article ${j + 1}`,
     url: `/nfl/article/${i * 4 + j + 1}`,
   }))
 );
 
-const nflSidebarNews = Array.from({ length: 8 }, (_, i) => ({
+const nflSidebarNews: SidebarNews[] = Array.from({ length: 8 }, (_, i) => ({
   id: i + 1,
   title: `NFL Sidebar News ${i + 1}`,
   timeAgo: `${i + 1}h ago`,
@@ -40,7 +54,7 @@ const nflSidebarNews = Array.from({ length: 8 }, (_, i) => ({
 const NFLFeatures = () => {
   const [activeTab, setActiveTab] = useState(0);
 
-  const renderFeatureCard = (news: any, height = 150) => (
+  const renderFeatureCard = (news: FeatureArticle, height = 150) => (
     <a
       href={news.url}
       key={news.id}
