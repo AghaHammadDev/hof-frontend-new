@@ -27,7 +27,7 @@ const newsSlides = [
 // Sidebar News (15)
 const sidebarNews = Array.from({ length: 15 }, (_, i) => ({
   id: i + 1,
-  image: cfb3.src,
+  image: cfb4.src,
   title: `Sidebar lorem ipsum dolor sit amet, consectetur elit ${i + 1}`,
   timeAgo: `${i + 1} days ago`,
   number: `${i + 1}`,
