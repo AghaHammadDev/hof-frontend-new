@@ -52,7 +52,7 @@ const NFLFeatures = () => {
           alt={news.title}
           width={600}
           height={height}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <div className="absolute bottom-4 left-4 right-4">
@@ -91,29 +91,23 @@ const NFLFeatures = () => {
           </div>
 
           {/* Animated Tab Content */}
-          <AnimatePresence mode="popLayout">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[150px] lg:auto-rows-[300px]"
-            >
-              <div className="lg:col-span-1 lg:row-span-2">
-                {renderFeatureCard(tabContent[activeTab][0], 300)}
-              </div>
-              <div className="lg:col-span-2 lg:row-span-2">
-                {renderFeatureCard(tabContent[activeTab][1], 300)}
-              </div>
-              <div className="lg:col-span-1 lg:row-span-1">
-                {renderFeatureCard(tabContent[activeTab][2], 150)}
-              </div>
-              <div className="lg:col-span-1 lg:row-span-1">
-                {renderFeatureCard(tabContent[activeTab][3], 150)}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          <div
+            key={activeTab}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[150px] lg:auto-rows-[300px]"
+          >
+            <div className="lg:col-span-1 lg:row-span-2">
+              {renderFeatureCard(tabContent[activeTab][0], 300)}
+            </div>
+            <div className="lg:col-span-2 lg:row-span-2">
+              {renderFeatureCard(tabContent[activeTab][1], 300)}
+            </div>
+            <div className="lg:col-span-1 lg:row-span-1">
+              {renderFeatureCard(tabContent[activeTab][2], 150)}
+            </div>
+            <div className="lg:col-span-1 lg:row-span-1">
+              {renderFeatureCard(tabContent[activeTab][3], 150)}
+            </div>
+          </div>
         </div>
 
         {/* Sidebar */}

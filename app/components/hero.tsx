@@ -40,7 +40,7 @@ type CFBPlayerCard = {
 const RatingsFeatureSection = () => {
   const [activeTab, setActiveTab] = useState<
     "prep_ratings" | "college_ratings" | "nfl_ratings" | "hof_ratings"
-  >("college_ratings");
+  >("prep_ratings");
 
   const [nflPlayers, setNflPlayers] = useState<NFLPlayerCard[]>([]);
   const [nflLoading, setNflLoading] = useState(true);
@@ -192,7 +192,7 @@ const RatingsFeatureSection = () => {
 
   return (
     <section className="bg-black py-4 sm:py-6">
-      <div className="container mx-auto px-4 grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-4">
+      <div className=" px-10 grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-4">
         {/* Sidebar Ratings */}
         <motion.div
           initial={{ x: -100, opacity: 0 }}
@@ -200,7 +200,7 @@ const RatingsFeatureSection = () => {
           transition={{ duration: 1 }}
           className="md:col-span-3"
         >
-          <div className="p-4 sm:p-6 flex flex-col gap-3">
+          <div className="py-2 sm:py-3 flex flex-col gap-3">
             <p className="text-sm sm:text-md font-normal text-[#98B0FF]">
               Latest Ratings
             </p>
