@@ -34,7 +34,7 @@ export default function Login() {
 
   return (
     <section
-      className="bg-gray-200 bg-no-repeat bg-cover bg-center"
+      className="bg-gray-200 text-black bg-no-repeat bg-cover bg-center"
       style={{ backgroundImage: `url(${Nfl.src})` }}
     >
       <div className="backdrop-blur-md flex flex-col items-center justify-center px-6 mx-auto md:h-screen">
