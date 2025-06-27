@@ -1,181 +1,144 @@
 "use client";
+
 import React from "react";
 import Nfl from "@/app/assets/nfl.jpg";
 import { motion } from "framer-motion";
 
 export default function Signup() {
   return (
-    <div>
-      <section
-        className="bg-gray-200 bg-no-repeat bg-cover bg-center"
-        style={{ backgroundImage: `url(${Nfl.src})` }}
+    <section
+      className="relative bg-no-repeat bg-cover bg-center flex items-center justify-center p-7"
+      style={{ backgroundImage: `url(${Nfl.src})` }}
+    >
+      {/* Glass Overlay */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-md z-0" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-10 w-full max-w-5xl bg-white/10 backdrop-blur-xl text-white rounded-xl border border-white/20 shadow-2xl p-8 md:p-12"
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="backdrop-blur-md flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
-        >
-          <div className="w-full  bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Create your account
-              </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label
-                      htmlFor="firstName"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      id="firstName"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="John"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="lastName"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      id="lastName"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Doe"
-                      required
-                    />
-                  </div>
-                </div>
+        <h1 className="text-3xl font-bold mb-8 text-center">
+          Create your account
+        </h1>
 
-                <div>
-                  <label
-                    htmlFor="username"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="johndoe"
-                    required
-                  />
-                </div>
+        <form className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="firstName" className="block text-sm font-medium">
+                First Name
+              </label>
+              <input
+                type="text"
+                id="firstName"
+                placeholder="John"
+                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Your email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="name@company.com"
-                    required
-                  />
-                </div>
+            <div>
+              <label htmlFor="lastName" className="block text-sm font-medium">
+                Last Name
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                placeholder="Doe"
+                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
-                  />
-                </div>
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium">
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                placeholder="johndoe"
+                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="confirmPassword"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Confirm password
-                  </label>
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
-                  />
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="terms"
-                      aria-describedby="terms"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 "
-                      required
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="terms"
-                      className="font-light text-gray-500 dark:text-gray-300"
-                    >
-                      I accept the{" "}
-                      <a
-                        className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                        href="tnc"
-                      >
-                        Terms and Conditions
-                      </a>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-center">
-                  <button
-                    type="submit"
-                    className="w-1/2 text-white bg-blue-700 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer hover:border-primary-600 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 hover:scale-101 transition ease-in-out duration-300"
-                  >
-                    Create account
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-center">
-                  <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                    Already have an account?{" "}
-                    <a
-                      href="login"
-                      className="ml-2 font-medium text-primary-600 hover:underline hover:text-blue-600 transition-all ease-in-out duration-300"
-                    >
-                      Sign in
-                    </a>
-                  </p>
-                </div>
-              </form>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                placeholder="you@example.com"
+                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
           </div>
-        </motion.div>
-      </section>
-    </div>
+
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="••••••••"
+                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium"
+              >
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="••••••••"
+                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div className="flex items-start space-x-2">
+              <input
+                type="checkbox"
+                id="terms"
+                required
+                className="mt-1 w-4 h-4 rounded border-white/30 bg-white/10 cursor-pointer"
+              />
+              <label htmlFor="terms" className="text-sm text-white">
+                I accept the{" "}
+                <a
+                  href="/tnc"
+                  className="underline hover:text-blue-400 cursor-pointer"
+                >
+                  Terms and Conditions
+                </a>
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 mt-2 bg-blue-600 hover:bg-blue-700 rounded-md font-semibold text-white transition duration-300 cursor-pointer"
+            >
+              Create Account
+            </button>
+
+            <p className="text-sm text-center text-gray-300">
+              Already have an account?{" "}
+              <a
+                href="/login"
+                className="underline text-blue-400 hover:text-blue-600 cursor-pointer"
+              >
+                Sign in
+              </a>
+            </p>
+          </div>
+        </form>
+      </motion.div>
+    </section>
   );
 }

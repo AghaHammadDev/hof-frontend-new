@@ -5,7 +5,6 @@ import Link from "next/link";
 import Logo from "@/app/assets/logo.png";
 import TsxLogo from "@/app/assets/tsx_logo.png";
 import HallLogo from "@/app/assets/hall-logo.svg";
-import Navbar from "@/app/components/navbar";
 import { FiSearch } from "react-icons/fi";
 
 export default function GuestHeader() {

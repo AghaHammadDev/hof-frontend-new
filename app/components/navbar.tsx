@@ -56,6 +56,7 @@ const Navbar = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    window.dispatchEvent(new Event("loginChange"));
     window.location.href = "/";
   };
 
@@ -94,7 +95,7 @@ const Navbar = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
         ref={dropdownRef}
       >
         <div className="flex flex-col h-full p-4 mt-16">
-          <div className="flex-1 flex flex-col ">
+          <div className="flex-1 flex flex-col">
             <NavItem href="/" active={pathname === "/"}>
               Home
             </NavItem>
@@ -112,8 +113,12 @@ const Navbar = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
                   <FiPlus className="text-white" />
                 )}
               </button>
-              {openDropdown === "preps" && (
-                <div className="ml-4 flex flex-col space-y-1">
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  openDropdown === "preps" ? "max-h-40" : "max-h-0"
+                }`}
+              >
+                <div className="ml-4 flex flex-col">
                   <Link
                     href="/preps"
                     className={`block px-4 py-2 text-sm text-white hover:bg-gray-700 ${
@@ -131,7 +136,7 @@ const Navbar = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
                     Ratings
                   </Link>
                 </div>
-              )}
+              </div>
             </div>
 
             {/* College Subnav */}
@@ -147,8 +152,12 @@ const Navbar = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
                   <FiPlus className="text-white" />
                 )}
               </button>
-              {openDropdown === "college" && (
-                <div className="ml-4 flex flex-col space-y-1">
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  openDropdown === "college" ? "max-h-48" : "max-h-0"
+                }`}
+              >
+                <div className="ml-4 flex flex-col">
                   <Link
                     href="/features"
                     className={`block px-4 py-2 text-sm text-white hover:bg-gray-700 ${
@@ -174,28 +183,39 @@ const Navbar = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
                     Ratings
                   </Link>
                 </div>
-              )}
+              </div>
             </div>
 
-            <div className="mt-2 flex flex-col space-y-4">
+            {/* Increased spacing after College */}
+            <div className="mt-4">
               <NavItem href="/nfl-draft" active={pathname === "/nfl-draft"}>
                 NFL Draft
               </NavItem>
+            </div>
+            <div className="mt-4">
               <NavItem href="/nfl" active={pathname === "/nfl"}>
                 NFL
               </NavItem>
+            </div>
+            <div className="mt-4">
               <NavItem
                 href="/hall-of-fame"
                 active={pathname === "/hall-of-fame"}
               >
                 Hall of Fame
               </NavItem>
+            </div>
+            <div className="mt-4">
               <NavItem href="/ratings" active={pathname === "/ratings"}>
                 Ratings
               </NavItem>
+            </div>
+            <div className="mt-4">
               <NavItem href="/about" active={pathname === "/about"}>
                 About
               </NavItem>
+            </div>
+            <div className="mt-4">
               <NavItem href="/contact" active={pathname === "/contact"}>
                 Contact
               </NavItem>
@@ -204,9 +224,7 @@ const Navbar = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
 
           {/* Settings, Profile, Logout for Logged-in Users */}
           {isLoggedIn && (
-            <div className="mt-4 border-t border-gray-700 pt-4 flex flex-col space-y-2">
-              {" "}
-              {/* Added space-y-2 */}
+            <div className="mt-4 border-t border-gray-700 pt-4 flex flex-col">
               <Link
                 href="/settings"
                 className="block px-4 py-2 text-white hover:bg-gray-700"
@@ -230,9 +248,9 @@ const Navbar = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
         </div>
       </div>
 
-      {/* Desktop Navbar (Original, Unchanged) */}
+      {/* Desktop Navbar */}
       <nav className="bg-[#272526] text-white hidden lg:flex">
-        <div className=" sm:px-10 py-2 flex justify-between items-center">
+        <div className="sm:px-10 py-2 flex items-center">
           <div className="flex items-center space-x-6">
             <NavItem href="/" active={pathname === "/"}>
               Home
@@ -247,12 +265,12 @@ const Navbar = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
                 Preps
               </button>
               {openDropdown === "preps" && (
-                <div className="absolute z-40 w-50 bg-[#272526] rounded shadow">
+                <div className="absolute z-40 w-48 bg-[#272526] rounded shadow">
                   <ul className="py-1 text-sm">
                     <li>
                       <Link
                         href="/preps"
-                        className={`block px-4 py-2 text-white hover:bg-black ${
+                        className={`block px-4 py-2 text-white hover:bg-gray-700 ${
                           pathname === "/preps" ? "bg-gray-600" : ""
                         }`}
                       >
@@ -262,7 +280,7 @@ const Navbar = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
                     <li>
                       <Link
                         href="/prep/ratings"
-                        className={`block px-4 py-2 text-white hover:bg-black ${
+                        className={`block px-4 py-2 text-white hover:bg-gray-700 ${
                           pathname === "/prep/ratings" ? "bg-gray-600" : ""
                         }`}
                       >

@@ -9,7 +9,6 @@ import HofStories from "./components/hofStories";
 export default function page() {
   return (
     <div>
-      <Navbar />
       <HeroComponent />
       <CFBNewsSlider />
       <NFLNewsSlider />

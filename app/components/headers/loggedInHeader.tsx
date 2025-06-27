@@ -9,7 +9,6 @@ import UserPic from "@/app/assets/usericon.jpg";
 import Link from "next/link";
 import { IoIosNotifications } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
-import Navbar from "@/app/components/navbar";
 
 export default function LoggedInHeader() {
   const [openDropdown, setOpenDropdown] = useState<
@@ -129,13 +128,13 @@ export default function LoggedInHeader() {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <div className="relative w-64">
+              <div className="relative w-100">
                 <input
                   type="text"
                   placeholder="Search"
                   className="pl-8 pr-10 py-2 bg-[#31282A] text-sm focus:outline-none w-full"
                 />
-                <FiSearch className="absolute right-3 top-2.5 text-white" />
+                <FiSearch className="absolute right-3 top-2.5 text-white cursor-pointer" />
               </div>
               <div className="relative">
                 <button onClick={() => toggleDropdown("notif")}>
