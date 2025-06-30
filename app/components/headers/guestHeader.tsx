@@ -17,7 +17,7 @@ export default function GuestHeader() {
             {/* Hamburger Icon Placeholder (Handled in Navbar) */}
             <div className="w-6 h-6"></div>
             {/* Sign Up / Sign In */}
-            <div className="flex gap-2 flex-col md:flex-row items-center">
+            <div className="flex gap-2 flex-row items-center">
               <Link
                 href="/signup"
                 className="bg-gray-800 px-3 py-1 text-white rounded-md text-sm hover:bg-gray-700"
@@ -43,7 +43,7 @@ export default function GuestHeader() {
             <Link href="/">
               <Image src={TsxLogo} alt="TSX Logo" width={80} height={30} />
             </Link>
-            <div className="flex flex-col text-gray-400 font-normal leading-tight text-center">
+            <div className="flex flex-col text-gray-400 font-normal leading-tight text-center cursor-default">
               <p>Best of the Best</p>
               <p>From Cradle to Canton</p>
             </div>
@@ -72,7 +72,7 @@ export default function GuestHeader() {
               <Link href="/">
                 <Image src={TsxLogo} alt="TSX Logo" width={80} height={30} />
               </Link>
-              <div className="flex flex-col text-gray-400 font-normal leading-tight ml-2">
+              <div className="flex flex-col text-gray-400 font-normal leading-tight ml-2 cursor-default">
                 <p>Best of the Best</p>
                 <p>From Cradle to Canton</p>
               </div>

@@ -347,7 +347,7 @@ const RatingsFeatureSection = () => {
           >
             <Link href={featuredStory.url}>
               <div
-                className="h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] bg-cover bg-center"
+                className="h-[220px] sm:h-[340px] md:h-[440px] lg:h-[520px] bg-cover bg-center"
                 style={{ backgroundImage: `url(${heroImage.src})` }}
               >
                 <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-0 px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 sm:mb-5">

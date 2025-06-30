@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Logo from "@/app/assets/logo.png";
 import TsxLogo from "@/app/assets/tsx_logo.png";
 import HallLogo from "@/app/assets/hall-logo.svg";
@@ -14,6 +14,8 @@ export default function LoggedInHeader() {
   const [openDropdown, setOpenDropdown] = useState<
     "none" | "notif" | "profile"
   >("none");
+  const notifRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = (type: "notif" | "profile") => {
     setOpenDropdown((prev) => (prev === type ? "none" : type));
@@ -23,6 +25,24 @@ export default function LoggedInHeader() {
     localStorage.removeItem("user");
     window.location.href = "/";
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        notifRef.current &&
+        !notifRef.current.contains(event.target as Node) &&
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        setOpenDropdown("none");
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="bg-black text-white">
@@ -34,7 +54,7 @@ export default function LoggedInHeader() {
             <div className="w-6 h-6"></div>
             {/* Notifications and Profile */}
             <div className="flex items-center gap-4">
-              <div className="relative">
+              <div className="relative" ref={notifRef}>
                 <button onClick={() => toggleDropdown("notif")}>
                   <IoIosNotifications
                     size={20}
@@ -47,7 +67,7 @@ export default function LoggedInHeader() {
                   </div>
                 )}
               </div>
-              <div className="relative">
+              <div className="relative" ref={profileRef}>
                 <button onClick={() => toggleDropdown("profile")}>
                   <Image
                     src={UserPic}
@@ -93,7 +113,7 @@ export default function LoggedInHeader() {
             <Link href="/">
               <Image src={TsxLogo} alt="TSX Logo" width={80} height={30} />
             </Link>
-            <div className="flex flex-col text-gray-400 font-normal leading-tight text-center">
+            <div className="flex flex-col text-gray-400 font-normal leading-tight text-center cursor-default">
               <p>Best of the Best</p>
               <p>From Cradle to Canton</p>
             </div>
@@ -136,7 +156,7 @@ export default function LoggedInHeader() {
                 />
                 <FiSearch className="absolute right-3 top-2.5 text-white cursor-pointer" />
               </div>
-              <div className="relative">
+              <div className="relative" ref={notifRef}>
                 <button onClick={() => toggleDropdown("notif")}>
                   <IoIosNotifications
                     size={20}
@@ -149,7 +169,10 @@ export default function LoggedInHeader() {
                   </div>
                 )}
               </div>
-              <div className="relative flex items-center gap-2">
+              <div
+                className="relative flex items-center gap-2"
+                ref={profileRef}
+              >
                 <button onClick={() => toggleDropdown("profile")}>
                   <Image
                     src={UserPic}
@@ -166,7 +189,7 @@ export default function LoggedInHeader() {
                   Logout
                 </button>
                 {openDropdown === "profile" && (
-                  <div className="absolute right-0 top-10 bg-white text-black p-2 rounded shadow-md w-48 z-10">
+                  <div className="absolute right-0 top-10 bg-white text-black p-2 rounded shadow-md w-28 z-10">
                     <ul className="space-y-2">
                       <li>
                         <a href="/settings" className="hover:underline">

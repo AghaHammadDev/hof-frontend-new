@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./components/navbar";
 import HeroComponent from "./components/hero";
 import CFBNewsSlider from "./components/cfbNews";
 import NFLNewsSlider from "./components/nflNews";

@@ -39,10 +39,10 @@ export default function Contact() {
           className="flex backdrop-blur-xl bg-white/10 text-white rounded-xl shadow-2xl overflow-hidden max-w-4xl w-full border border-white/20"
         >
           {/* Left - Logo & Text */}
-          <div className="hidden md:flex flex-col items-center justify-center border-r border-white/20 w-1/2 p-10">
+          <div className="hidden md:flex flex-col items-center justify-center border-r border-white/20 w-1/2 p-10 cursor-default">
             <Image src={logo} alt="Logo" className="w-20 h-20 mb-4" />
-            <h2 className="text-3xl font-bold text-white text-center">
-              Let's Get in Touch
+            <h2 className="text-3xl font-bold text-white text-center cursor-default">
+              Let&apos;s Get in Touch
             </h2>
             <p className="text-sm mt-2 text-center text-gray-200">
               Have questions, ideas, or just want to say hi?
@@ -53,10 +53,12 @@ export default function Contact() {
 
           {/* Right - Form */}
           <div className="w-full md:w-1/2 p-8">
-            <h2 className="text-2xl font-bold text-white mb-6">Contact Us</h2>
+            <h2 className="text-2xl font-bold text-white mb-6 cursor-default">
+              Contact Us
+            </h2>
             {submitted ? (
               <p className="text-green-400 text-sm mb-4">
-                ✅ Message sent! We'll be in touch soon.
+                ✅ Message sent! We&apos;ll be in touch soon.
               </p>
             ) : null}
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -98,46 +100,46 @@ export default function Contact() {
 
             {/* Email Info & Socials */}
             <div className="mt-6 text-center text-sm text-gray-300">
-              📬 Or email us directly at{" "}
+              Or email us directly at{" "}
               <a
                 href="mailto:info@HallofFootball.com"
-                className="underline text-blue-300 hover:text-blue-400"
+                className="underline text-blue-300 hover:text-blue-500 transition-colors duration-300"
               >
                 info@HallofFootball.com
               </a>
-              <div className="flex justify-center gap-4 mt-4 text-xl">
+              <div className="flex justify-center gap-4 mt-4 text-xl ">
                 <a
                   href="https://facebook.com"
                   target="_blank"
-                  className="hover:text-blue-500"
+                  className="hover:text-blue-500 transition-colors duration-300"
                 >
                   <FaFacebook />
                 </a>
                 <a
                   href="https://instagram.com"
                   target="_blank"
-                  className="hover:text-pink-500"
+                  className="hover:text-pink-500 transition-colors duration-300"
                 >
                   <FaInstagram />
                 </a>
                 <a
                   href="https://youtube.com"
                   target="_blank"
-                  className="hover:text-red-500"
+                  className="hover:text-red-500 transition-colors duration-300"
                 >
                   <FaYoutube />
                 </a>
                 <a
                   href="https://x.com"
                   target="_blank"
-                  className="hover:text-gray-400"
+                  className="hover:text-gray-500 transition-colors duration-300"
                 >
                   <FaXTwitter />
                 </a>
                 <a
                   href="https://linkedin.com"
                   target="_blank"
-                  className="hover:text-blue-400"
+                  className="hover:text-blue-400 transition-colors duration-300"
                 >
                   <FaLinkedin />
                 </a>
