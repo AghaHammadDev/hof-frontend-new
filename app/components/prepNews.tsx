@@ -43,7 +43,9 @@ const newsSlides: NewsSlide[][] = [
 const sidebarNews: SidebarNews[] = Array.from({ length: 30 }, (_, i) => ({
   id: i + 1,
   image: cfb5.src,
-  title: `Sidebar lorem ipsum dolor sit amet, consectetur  elit ${i + 1}`,
+  title: `Sidebar lorem ipsum dolor sit amet, consectetur lorem ea elit ${
+    i + 1
+  }`,
   timeAgo: `${i + 1} days ago`,
   number: `${i + 1}`,
 }));
@@ -203,9 +205,10 @@ const PrepNews = () => {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                      <h4 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-3">
                         {news.title}
                       </h4>
+
                       <p className="text-sm text-gray-500 mt-1">
                         {news.timeAgo}
                       </p>

@@ -43,7 +43,7 @@ const newsSlides: NewsItem[][] = [
 const sidebarNews: SidebarNewsItem[] = Array.from({ length: 15 }, (_, i) => ({
   id: i + 1,
   image: cfb3.src,
-  title: `Sidebar lorem ipsum dolor sit amet, consectetur  elit ${i + 1}`,
+  title: `Sidebar lorem ipsum dolor sit amet, consectetur  elit  ${i + 1}`,
   timeAgo: `${i + 1} days ago`,
   number: `${i + 1}`,
 }));
@@ -86,7 +86,7 @@ const CFBNews = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
         <div className="absolute bottom-4 left-4 right-4">
-          <h3 className="text-white font-semibold text-base leading-tight">
+          <h3 className="text-white font-semibold text-base leading-tight line-clamp-3">
             {news.title}
           </h3>
         </div>
@@ -156,7 +156,7 @@ const CFBNews = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="w-full lg:w-80 flex flex-col justify-between">
+          <div className="w-full lg:w-80 flex flex-col lg:h-[672px]">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-black">CFB Notes</h2>
               <div className="flex items-center">
@@ -187,7 +187,7 @@ const CFBNews = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                className="space-y-5 h-full"
+                className="flex-1 space-y-5"
               >
                 {currentSidebarNews.map((news) => (
                   <motion.div
@@ -204,7 +204,7 @@ const CFBNews = () => {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                      <h4 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-3">
                         {news.title}
                       </h4>
                       <p className="text-sm text-gray-500 mt-1">
@@ -212,7 +212,7 @@ const CFBNews = () => {
                       </p>
                     </div>
                     <div className="flex-shrink-0 pr-1">
-                      <span className="text-5xl font-bold text-gray-300 leading-none">
+                      <span className="text-6xl font-bold text-gray-300 leading-none">
                         {news.number}
                       </span>
                     </div>

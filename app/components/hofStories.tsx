@@ -43,7 +43,7 @@ const newsSlides: NewsSlide[][] = [
 const sidebarNews: SidebarNews[] = Array.from({ length: 15 }, (_, i) => ({
   id: i + 1,
   image: cfb4.src,
-  title: `Sidebar lorem ipsum dolor sit amet, consectetur elit ${i + 1}`,
+  title: `Sidebar lorem ipsum dolor sit amet, consectetur elit lorem ${i + 1}`,
   timeAgo: `${i + 1} days ago`,
   number: `${i + 1}`,
 }));
@@ -100,7 +100,9 @@ const HOFNews = () => {
           {/* Main News */}
           <div className="flex-1">
             <div className="flex items-center justify-between mb-6">
-              <h1 className="text-2xl font-bold text-black">CFB News</h1>
+              <h1 className="text-2xl font-bold text-black">
+                Hall of Fame Stories
+              </h1>
               <div className="flex items-center">
                 <button onClick={handleMainPrev} className="p-1">
                   <IoIosArrowRoundBack className="w-8 h-8 text-black hover:text-[#1d48f2] transition-colors duration-300 ease-in-out" />
@@ -161,7 +163,7 @@ const HOFNews = () => {
           <div className="w-full lg:w-80 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-black">
-                CFB News & Notes
+                NFL Draft Scout
               </h2>
               <div className="flex items-center">
                 <button onClick={handleSidebarPrev} className="p-1">
@@ -208,9 +210,10 @@ const HOFNews = () => {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                      <h4 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-3">
                         {news.title}
                       </h4>
+
                       <p className="text-sm text-gray-500 mt-1">
                         {news.timeAgo}
                       </p>
