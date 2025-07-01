@@ -23,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${lexend.variable}`}>
-      <body className="font-sans antialiased">
+    <html lang="en">
+      <body className={`${lexend.variable} font-sans antialiased`}>
         <Header />
         <Navbar />
         {children}

@@ -218,7 +218,7 @@ export default function Signup() {
             >
               <div className="flex items-center justify-between px-6 py-4 bg-white/5 backdrop-blur-sm border-b border-white/10">
                 <div className="flex items-center space-x-3"></div>
-                <h1 className="text-white font-medium text-3xl text-center flex-1 cursor-default">
+                <h1 className="text-white font-medium text-3xl text-center flex-1 cursor-default?">
                   Terms and Conditions
                 </h1>
               </div>

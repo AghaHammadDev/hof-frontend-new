@@ -6,10 +6,7 @@ import Nfl from "@/app/assets/nfl.jpg";
 
 export default function About() {
   return (
-    <section
-      className="relative bg-no-repeat bg-cover bg-center p-6 flex items-center justify-center"
-      style={{ backgroundImage: `url(${Nfl.src})` }}
-    >
+    <section className="relative bg-[#0F121C] p-6 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm z-0" />
 
       <motion.div
