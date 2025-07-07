@@ -4,7 +4,46 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import hero from "@/app/assets/nfl.jpg";
 
-export default function Signup() {
+interface AnimatedInputProps {
+  id: string;
+  label: string;
+  type?: string;
+  placeholder: string;
+  required?: boolean;
+}
+
+const AnimatedInput: React.FC<AnimatedInputProps> = ({
+  id,
+  label,
+  type = "text",
+  placeholder,
+  required = true,
+}) => {
+  return (
+    <div className="relative mt-1 group">
+      <input
+        id={id}
+        type={type}
+        required={required}
+        placeholder={placeholder}
+        className="w-full p-4 text-white bg-white/20 rounded-md border border-white/30 focus:outline-none focus:border-blue-500 peer placeholder-transparent"
+      />
+      <label
+        htmlFor={id}
+        className="absolute left-2 text-gray-300 pointer-events-none transform transition-all duration-300 
+                   peer-focus:-translate-y-6 peer-focus:scale-95 peer-focus:text-blue-400 
+                   peer-[&:not(:placeholder-shown)]:-translate-y-6 
+                   peer-[&:not(:placeholder-shown)]:scale-75 
+                   peer-[&:not(:placeholder-shown)]:text-blue-400
+                   top-4 peer-focus:top-1 peer-[&:not(:placeholder-shown)]:top-1"
+      >
+        {label}
+      </label>
+    </div>
+  );
+};
+
+const Signup: React.FC = () => {
   const [showTerms, setShowTerms] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
 
@@ -31,7 +70,7 @@ export default function Signup() {
 
   return (
     <section
-      className="relative bg-no-repeat bg-cover bg-center flex items-center justify-center p-7 min-h-screen"
+      className="relative bg-no-repeat bg-cover bg-center flex items-center justify-center p-4 sm:p-7 min-h-screen"
       style={{
         backgroundImage: `url(${hero.src})`,
       }}
@@ -43,93 +82,53 @@ export default function Signup() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative z-10 w-full max-w-5xl bg-white/10 backdrop-blur-xl text-white rounded-xl border border-white/20 shadow-2xl p-8 md:p-12"
+        className="relative z-10 w-full max-w-5xl bg-white/10 backdrop-blur-xl text-white rounded-xl border border-white/20 shadow-2xl p-6 md:p-8 lg:p-12"
       >
-        <h1 className="text-3xl font-bold mb-8 text-center cursor-default">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center cursor-default">
           Create your account
         </h1>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <div>
-              <label htmlFor="firstName" className="block text-sm font-medium">
-                First Name
-              </label>
-              <input
-                type="text"
-                id="firstName"
-                placeholder="John"
-                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          <div className="space-y-4 sm:space-y-6">
+            <AnimatedInput
+              id="firstName"
+              label="First Name"
+              placeholder="John"
+            />
 
-            <div>
-              <label htmlFor="lastName" className="block text-sm font-medium">
-                Last Name
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                placeholder="Doe"
-                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            <AnimatedInput id="lastName" label="Last Name" placeholder="Doe" />
 
-            <div>
-              <label htmlFor="username" className="block text-sm font-medium">
-                Username
-              </label>
-              <input
-                type="text"
-                id="username"
-                placeholder="johndoe"
-                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            <AnimatedInput
+              id="username"
+              label="Username"
+              placeholder="johndoe"
+            />
 
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                placeholder="you@example.com"
-                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            <AnimatedInput
+              id="email"
+              label="Email"
+              type="email"
+              placeholder="you@example.com"
+            />
           </div>
 
-          <div className="space-y-6">
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                placeholder="••••••••"
-                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+          <div className="space-y-4 sm:space-y-6">
+            <AnimatedInput
+              id="password"
+              label="Password"
+              type="password"
+              placeholder="••••••••"
+            />
 
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium"
-              >
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                placeholder="••••••••"
-                className="w-full mt-1 p-3 rounded-md bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            <AnimatedInput
+              id="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              placeholder="••••••••"
+            />
 
-            <div className="flex items-start space-x-3">
-              <label className="cursor-pointer duration-300 relative overflow-hidden w-5 h-5 flex justify-center items-center border border-white/30 rounded-md bg-white/10 before:absolute before:w-8 before:h-8 before:content[''] before:right-0 before:rounded-full before:blur-sm after:absolute after:z-10 after:w-4 after:h-4 after:content[''] after:left-1 after:bottom-1 after:rounded-full after:blur-sm">
+            <div className="flex items-start space-x-3 pt-2">
+              <label className="cursor-pointer duration-300 relative overflow-hidden w-5 h-5 flex justify-center items-center border border-white/30 rounded-md bg-white/10 before:absolute before:w-8 before:h-8 before:content-[''] before:right-0 before:rounded-full before:blur-sm after:absolute after:z-10 after:w-4 after:h-4 after:content-[''] after:left-1 after:bottom-1 after:rounded-full after:blur-sm">
                 <input
                   type="checkbox"
                   id="terms"
@@ -145,7 +144,7 @@ export default function Signup() {
                 <button
                   type="button"
                   onClick={toggleTerms}
-                  className="underline hover:text-blue-400 cursor-pointer transition-colors duration-200 "
+                  className="underline hover:text-blue-400 cursor-pointer transition-colors duration-200"
                 >
                   Terms and Conditions
                 </button>
@@ -207,7 +206,7 @@ export default function Signup() {
               }}
               transition={{
                 duration: 0.4,
-                ease: [0.16, 1, 0.3, 1], // macOS easing curve
+                ease: [0.16, 1, 0.3, 1],
                 scale: {
                   type: "spring",
                   damping: 20,
@@ -217,34 +216,27 @@ export default function Signup() {
               className="relative z-10 w-full max-w-3xl bg-white/10 backdrop-blur-xl text-white rounded-xl border border-white/20 shadow-2xl overflow-hidden"
             >
               <div className="flex items-center justify-between px-6 py-4 bg-white/5 backdrop-blur-sm border-b border-white/10">
-                <div className="flex items-center space-x-3"></div>
-                <h1 className="text-white font-medium text-3xl text-center flex-1 cursor-default?">
+                <h1 className="text-white font-medium text-xl sm:text-2xl md:text-3xl text-center flex-1 cursor-default">
                   Terms and Conditions
                 </h1>
               </div>
 
               {/* Content with hidden scrollbar */}
               <div
-                className="p-8 max-h-[70vh] overflow-y-auto text-white"
+                className="p-4 sm:p-6 md:p-8 max-h-[60vh] sm:max-h-[70vh] overflow-y-auto text-white"
                 style={{
                   scrollbarWidth: "none",
                   msOverflowStyle: "none",
                 }}
               >
-                <style jsx>{`
-                  .content-scroll::-webkit-scrollbar {
-                    display: none;
-                  }
-                `}</style>
-
-                <div className="space-y-6 text-sm leading-relaxed">
+                <div className="space-y-4 sm:space-y-6 text-sm leading-relaxed">
                   <p className="text-gray-200">
                     Welcome to our platform. By creating an account, you agree
                     to be bound by these Terms of Service.
                   </p>
 
                   <div>
-                    <h4 className="font-bold text-lg mb-3 text-blue-300">
+                    <h4 className="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-blue-300">
                       1. User Responsibilities
                     </h4>
                     <p className="text-gray-200">
@@ -255,7 +247,7 @@ export default function Signup() {
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-lg mb-3 text-blue-300">
+                    <h4 className="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-blue-300">
                       2. Content
                     </h4>
                     <p className="text-gray-200">
@@ -268,7 +260,7 @@ export default function Signup() {
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-lg mb-3 text-blue-300">
+                    <h4 className="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-blue-300">
                       3. Privacy
                     </h4>
                     <p className="text-gray-200">
@@ -281,7 +273,7 @@ export default function Signup() {
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-lg mb-3 text-blue-300">
+                    <h4 className="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-blue-300">
                       4. Modifications
                     </h4>
                     <p className="text-gray-200">
@@ -294,7 +286,7 @@ export default function Signup() {
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-lg mb-3 text-blue-300">
+                    <h4 className="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-blue-300">
                       5. Termination
                     </h4>
                     <p className="text-gray-200">
@@ -307,7 +299,7 @@ export default function Signup() {
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-lg mb-3 text-blue-300">
+                    <h4 className="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-blue-300">
                       6. Limitation of Liability
                     </h4>
                     <p className="text-gray-200">
@@ -321,7 +313,7 @@ export default function Signup() {
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-lg mb-3 text-blue-300">
+                    <h4 className="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-blue-300">
                       7. Governing Law
                     </h4>
                     <p className="text-gray-200">
@@ -332,7 +324,7 @@ export default function Signup() {
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-lg mb-3 text-blue-300">
+                    <h4 className="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-blue-300">
                       8. Contact Information
                     </h4>
                     <p className="text-gray-200">
@@ -345,10 +337,10 @@ export default function Signup() {
               </div>
 
               {/* Footer */}
-              <div className="px-8 py-6 bg-white/5 backdrop-blur-sm border-t border-white/10 flex justify-center ">
+              <div className="px-4 sm:px-6 md:px-8 py-4 sm:py-6 bg-white/5 backdrop-blur-sm border-t border-white/10 flex justify-center">
                 <button
                   onClick={toggleTerms}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform  cursor-pointer"
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl cursor-pointer"
                 >
                   I Understand
                 </button>
@@ -359,4 +351,6 @@ export default function Signup() {
       </AnimatePresence>
     </section>
   );
-}
+};
+
+export default Signup;
