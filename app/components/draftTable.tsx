@@ -5,7 +5,6 @@ import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import { motion } from "framer-motion";
 import draftData from "@/app/assets/hofData.json";
 
-// Type definition for player data
 interface Player {
   rank: number;
   player: string;
@@ -18,6 +17,16 @@ interface Player {
   forty: number;
   projRound: number;
   img: string;
+}
+
+interface DraftTableProps {
+  data?: Player[];
+  onResetFilters?: () => void;
+  hideColumns?: string[];
+  selectedPosition?: string;
+  setSelectedPosition?: React.Dispatch<React.SetStateAction<string>>;
+  currentPage?: number;
+  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const positionOptions = [
@@ -41,7 +50,6 @@ const positionOptions = [
 
 const ITEMS_PER_PAGE = 10;
 
-// Position Filters Component
 interface PositionFiltersProps {
   selectedPosition: string;
   onPositionChange: (position: string) => void;
@@ -57,10 +65,12 @@ const PositionFilters: React.FC<PositionFiltersProps> = ({
   };
 
   return (
-    <div className="mb-6 text-center justify-center">
-      <h2 className="text-lg font-semibold mb-2">RANKING LISTS BY POSITION:</h2>
+    <div className="mb-4 sm:mb-6 text-center justify-center">
+      <h2 className="text-sm sm:text-lg font-semibold mb-2">
+        RANKING LISTS BY POSITION:
+      </h2>
       <motion.div
-        className="flex flex-wrap gap-2 justify-center"
+        className="flex flex-wrap gap-1 sm:gap-2 justify-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ staggerChildren: 0.05 }}
@@ -70,7 +80,7 @@ const PositionFilters: React.FC<PositionFiltersProps> = ({
             key={pos}
             variants={buttonVariants}
             onClick={() => onPositionChange(pos)}
-            className={`px-3 py-1 text-xs sm:text-sm rounded transition-colors duration-200 ${
+            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded transition-colors duration-200 ${
               selectedPosition === pos
                 ? "bg-blue-700 text-white"
                 : "bg-gray-200 text-gray-800 hover:bg-gray-300"
@@ -87,55 +97,70 @@ const PositionFilters: React.FC<PositionFiltersProps> = ({
   );
 };
 
-// Player Table Component
 interface PlayerTableProps {
   paginatedData: Player[];
   currentPage: number;
   selectedPosition: string;
+  hideColumns?: string[];
 }
 
 const PlayerTable: React.FC<PlayerTableProps> = ({
   paginatedData,
-  currentPage,
-  selectedPosition,
+
+  hideColumns = [],
 }) => {
+  const columns = [
+    { key: "rank", label: "Rank", className: "bg-blue-700 text-white" },
+    {
+      key: "player",
+      label: "Player",
+      headerPadding: "px-2",
+      cellPadding: "px-0 py-0",
+    },
+    { key: "position", label: "Pos." },
+    { key: "posRank", label: "Pos. Rank" },
+    { key: "height", label: "Ht" },
+    { key: "weight", label: "Wt" },
+    { key: "class", label: "Class" },
+    { key: "forty", label: "40" },
+    { key: "projRound", label: "Proj. Round" },
+  ];
+
+  const visibleColumns = columns.filter(
+    (column) => !hideColumns.includes(column.key)
+  );
+
+  const mobileColumns = [
+    { key: "rank", label: "Rank", className: "bg-blue-700 text-white" },
+    {
+      key: "player",
+      label: "Player Info",
+      headerPadding: "px-2",
+      cellPadding: "px-0 py-0",
+    },
+    { key: "height", label: "Ht." },
+    { key: "weight", label: "Wt." },
+    { key: "forty", label: "40" },
+    { key: "projRound", label: "Round" },
+  ].filter((column) => !hideColumns.includes(column.key));
+
   return (
     <>
-      {/* Table for larger screens */}
+      {/* Desktop Table */}
       <div className="hidden sm:block overflow-x-auto">
-        <table
-          key={`${currentPage}-${selectedPosition}`}
-          className="min-w-full border border-gray-300 text-xs sm:text-sm"
-        >
+        <table className="min-w-full border border-gray-300 text-xs sm:text-sm">
           <thead className="bg-gray-100 text-gray-700">
             <tr>
-              <th className="border border-gray-300 bg-blue-700 text-white px-2 sm:px-4 py-2 text-left">
-                Rank
-              </th>
-              <th className="border border-gray-300 px-2 sm:px-4 py-2 text-left">
-                Player
-              </th>
-              <th className="border border-gray-300 px-2 sm:px-4 py-2 text-left">
-                Pos.
-              </th>
-              <th className="border border-gray-300 px-2 sm:px-4 py-2 text-left">
-                Pos. Rank
-              </th>
-              <th className="border border-gray-300 px-2 sm:px-4 py-2 text-left">
-                Ht
-              </th>
-              <th className="border border-gray-300 px-2 sm:px-4 py-2 text-left">
-                Wt
-              </th>
-              <th className="border border-gray-300 px-2 sm:px-4 py-2 text-left">
-                Class
-              </th>
-              <th className="border border-gray-300 px-2 sm:px-4 py-2 text-left">
-                40
-              </th>
-              <th className="border border-gray-300 px-2 sm:px-4 py-2 text-left">
-                Proj. Round
-              </th>
+              {visibleColumns.map((column) => (
+                <th
+                  key={column.key}
+                  className={`border border-gray-300 ${
+                    column.headerPadding || "px-2 sm:px-4"
+                  } py-2 text-left ${column.className || ""}`}
+                >
+                  {column.label}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="text-gray-800">
@@ -149,65 +174,58 @@ const PlayerTable: React.FC<PlayerTableProps> = ({
                     isTopPlayer ? "bg-white" : ""
                   }`}
                 >
-                  <td
-                    className={`border border-gray-300 bg-black text-white px-2 sm:px-4 py-2 font-semibold text-center align-middle ${
-                      isTopPlayer ? "text-4xl font-extrabold" : "text-2xl"
-                    }`}
-                  >
-                    {player.rank}
-                  </td>
-                  <td className="border border-gray-200 flex items-center gap-2 ">
-                    <Image
-                      src={player.img}
-                      alt={player.player}
-                      width={isTopPlayer ? 64 : 32}
-                      height={isTopPlayer ? 64 : 32}
-                      className={`object-cover ${
-                        isTopPlayer
-                          ? "w-16 h-16 sm:w-24 sm:h-24"
-                          : "w-8 h-8 sm:w-16 sm:h-16"
+                  {visibleColumns.map((column) => (
+                    <td
+                      key={column.key}
+                      className={`border border-gray-300 ${
+                        column.cellPadding || "px-2 sm:px-4 py-2"
+                      } ${
+                        column.key === "rank"
+                          ? `bg-black text-white text-center align-middle ${
+                              isTopPlayer
+                                ? "text-4xl font-extrabold"
+                                : "text-2xl"
+                            }`
+                          : ""
                       }`}
-                    />
-                    <div className="flex flex-col">
-                      <span
-                        className={`font-medium ${
-                          isTopPlayer
-                            ? "text-base sm:text-lg"
-                            : "text-xs sm:text-sm"
-                        }`}
-                      >
-                        {player.player}
-                      </span>
-                      <span
-                        className={`text-gray-500 ${
-                          isTopPlayer ? "text-sm sm:text-base" : "text-xs"
-                        }`}
-                      >
-                        {player.state}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="border border-gray-300 px-2 sm:px-4 py-2">
-                    {player.position}
-                  </td>
-                  <td className="border border-gray-300 px-2 sm:px-4 py-2">
-                    {player.posRank}
-                  </td>
-                  <td className="border border-gray-300 px-2 sm:px-4 py-2">
-                    {player.height}
-                  </td>
-                  <td className="border border-gray-300 px-2 sm:px-4 py-2">
-                    {player.weight}
-                  </td>
-                  <td className="border border-gray-300 px-2 sm:px-4 py-2">
-                    {player.class}
-                  </td>
-                  <td className="border border-gray-300 px-2 sm:px-4 py-2">
-                    {player.forty}
-                  </td>
-                  <td className="border border-gray-300 px-2 sm:px-4 py-2">
-                    {player.projRound}
-                  </td>
+                    >
+                      {column.key === "player" ? (
+                        <div className="flex items-center gap-2">
+                          <Image
+                            src={player.img}
+                            alt={player.player}
+                            width={isTopPlayer ? 64 : 32}
+                            height={isTopPlayer ? 64 : 32}
+                            className={`object-cover ${
+                              isTopPlayer
+                                ? "w-16 h-16 sm:w-24 sm:h-24"
+                                : "w-8 h-8 sm:w-16 sm:h-16"
+                            }`}
+                          />
+                          <div className="flex flex-col">
+                            <span
+                              className={`font-medium ${
+                                isTopPlayer
+                                  ? "text-base sm:text-lg"
+                                  : "text-xs sm:text-sm"
+                              }`}
+                            >
+                              {player.player}
+                            </span>
+                            <span
+                              className={`text-gray-500 ${
+                                isTopPlayer ? "text-sm sm:text-base" : "text-xs"
+                              }`}
+                            >
+                              {player.state}
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        player[column.key as keyof Player]
+                      )}
+                    </td>
+                  ))}
                 </tr>
               );
             })}
@@ -215,30 +233,21 @@ const PlayerTable: React.FC<PlayerTableProps> = ({
         </table>
       </div>
 
-      {/* Compact table for mobile */}
+      {/* Mobile Table */}
       <div className="block sm:hidden overflow-x-auto">
-        <table
-          key={`${currentPage}-${selectedPosition}`}
-          className="min-w-full border border-gray-300 text-xs"
-        >
+        <table className="min-w-full border border-gray-300 text-xs">
           <thead className="bg-gray-100 text-gray-700">
             <tr>
-              <th className="border border-gray-300 bg-blue-700 text-white px-2 py-1 text-left">
-                Rank
-              </th>
-              <th className="border border-gray-300 px-2 py-1 text-left">
-                Player Info
-              </th>
-              <th className="border border-gray-300 px-2 py-1 text-left">
-                Ht.
-              </th>
-              <th className="border border-gray-300 px-2 py-1 text-left">
-                Wt.
-              </th>
-              <th className="border border-gray-300 px-2 py-1 text-left">40</th>
-              <th className="border border-gray-300 px-2 py-1 text-left">
-                Round
-              </th>
+              {mobileColumns.map((column) => (
+                <th
+                  key={column.key}
+                  className={`border border-gray-300 ${
+                    column.headerPadding || "px-2"
+                  } py-1 text-left ${column.className || ""}`}
+                >
+                  {column.label}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="text-gray-800">
@@ -247,51 +256,57 @@ const PlayerTable: React.FC<PlayerTableProps> = ({
 
               return (
                 <tr key={player.rank} className="hover:bg-gray-50">
-                  <td
-                    className={`border border-gray-300 text-white bg-black px-2 py-1 font-semibold text-center ${
-                      isTopPlayer ? "text-2xl" : "text-base"
-                    }`}
-                  >
-                    {player.rank}
-                  </td>
-                  <td className="border border-gray-300 ">
-                    <div className="flex items-center gap-2">
-                      <Image
-                        src={player.img}
-                        alt={player.player}
-                        width={isTopPlayer ? 48 : 32}
-                        height={isTopPlayer ? 48 : 32}
-                        className={`object-cover ${
-                          isTopPlayer ? "w-12 h-12" : "w-8 h-8"
-                        } `}
-                      />
-                      <div className="flex flex-col">
-                        <span
-                          className={`font-medium ${
-                            isTopPlayer ? "text-sm" : "text-xs"
-                          }`}
-                        >
-                          {player.player}
-                        </span>
-                        <span className="text-gray-500 text-xs">
-                          {player.state}, {player.class}, {player.position}, #
-                          {player.posRank}
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="border border-gray-300 px-2 py-1 text-xs">
-                    {player.height}
-                  </td>
-                  <td className="border border-gray-300 px-2 py-1 text-xs">
-                    {player.weight}
-                  </td>
-                  <td className="border border-gray-300 px-2 py-1 text-xs">
-                    {player.forty}
-                  </td>
-                  <td className="border border-gray-300 px-2 py-1 text-xs">
-                    {player.projRound}
-                  </td>
+                  {mobileColumns.map((column) => (
+                    <td
+                      key={column.key}
+                      className={`border border-gray-300 ${
+                        column.cellPadding || "px-2 py-1"
+                      } ${
+                        column.key === "rank"
+                          ? `text-white bg-black text-center ${
+                              isTopPlayer ? "text-2xl" : "text-base"
+                            }`
+                          : "text-xs"
+                      }`}
+                    >
+                      {column.key === "player" ? (
+                        <div className="flex items-center gap-2">
+                          <Image
+                            src={player.img}
+                            alt={player.player}
+                            width={isTopPlayer ? 48 : 32}
+                            height={isTopPlayer ? 48 : 32}
+                            className={`object-cover ${
+                              isTopPlayer ? "w-12 h-12" : "w-8 h-8"
+                            }`}
+                          />
+                          <div className="flex flex-col">
+                            <span
+                              className={`font-medium ${
+                                isTopPlayer ? "text-sm" : "text-xs"
+                              }`}
+                            >
+                              {player.player}
+                            </span>
+                            <span className="text-gray-500 text-xs">
+                              {[
+                                player.state,
+                                !hideColumns.includes("class")
+                                  ? player.class
+                                  : null,
+                                player.position,
+                                `#${player.posRank}`,
+                              ]
+                                .filter(Boolean)
+                                .join(", ")}
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        player[column.key as keyof Player]
+                      )}
+                    </td>
+                  ))}
                 </tr>
               );
             })}
@@ -302,7 +317,6 @@ const PlayerTable: React.FC<PlayerTableProps> = ({
   );
 };
 
-// Pagination Controls Component
 interface PaginationControlsProps {
   currentPage: number;
   totalPages: number;
@@ -325,7 +339,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-4"
+      className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2 sm:gap-4"
     >
       <div className="flex items-center">
         <button
@@ -336,10 +350,10 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
           }`}
           aria-label="Previous page"
         >
-          <IoIosArrowRoundBack className="w-8 h-8 text-black hover:text-blue-700 transition-colors duration-300" />
+          <IoIosArrowRoundBack className="w-6 h-6 sm:w-8 sm:h-8 text-black hover:text-blue-700 transition-colors duration-300" />
         </button>
-        <div className="flex space-x-2 mx-2">
-          {Array.from({ length: totalPages }).map((_, i) => (
+        <div className="flex space-x-1 sm:space-x-2 mx-1 sm:mx-2">
+          {Array.from({ length: Math.min(totalPages, 5) }).map((_, i) => (
             <motion.button
               key={i}
               onClick={() => onPageClick(i)}
@@ -362,10 +376,10 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
           }`}
           aria-label="Next page"
         >
-          <IoIosArrowRoundForward className="w-8 h-8 text-black hover:text-blue-700 transition-colors duration-300" />
+          <IoIosArrowRoundForward className="w-6 h-6 sm:w-8 sm:h-8 text-black hover:text-blue-700 transition-colors duration-300" />
         </button>
       </div>
-      <div className="text-xs sm:text-sm text-gray-500">
+      <div className="text-xs sm:text-sm text-gray-500 whitespace-nowrap">
         Showing {filteredDataLength > 0 ? currentPage * ITEMS_PER_PAGE + 1 : 0}-
         {Math.min((currentPage + 1) * ITEMS_PER_PAGE, filteredDataLength)} of{" "}
         {filteredDataLength} players
@@ -374,18 +388,22 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
   );
 };
 
-// Main DraftTable Component
-interface DraftTableProps {
-  data?: Player[]; // Optional for future API integration
-  onResetFilters?: () => void; // Callback for external reset control
-}
-
-export default function DraftTable({ data = draftData }: DraftTableProps) {
-  const [selectedPosition, setSelectedPosition] = useState("All Positions");
-  const [currentPage, setCurrentPage] = useState(0);
+export default function DraftTable({
+  data = draftData,
+  onResetFilters,
+  hideColumns = [],
+  selectedPosition: controlledPosition,
+  setSelectedPosition,
+  currentPage: controlledPage,
+  setCurrentPage,
+}: DraftTableProps) {
+  const [internalPosition, setInternalPosition] = useState("All Positions");
+  const [internalPage, setInternalPage] = useState(0);
   const [, setDirection] = useState(0);
 
-  // Memoize filtered data to prevent unnecessary recalculations
+  const selectedPosition = controlledPosition ?? internalPosition;
+  const currentPage = controlledPage ?? internalPage;
+
   const filteredData: Player[] = useMemo(
     () =>
       data.filter(
@@ -403,27 +421,58 @@ export default function DraftTable({ data = draftData }: DraftTableProps) {
   );
 
   const handlePositionButtonClick = (position: string) => {
-    setSelectedPosition(position);
-    setCurrentPage(0);
+    if (setSelectedPosition) {
+      setSelectedPosition(position);
+    } else {
+      setInternalPosition(position);
+    }
+    if (setCurrentPage) {
+      setCurrentPage(0);
+    } else {
+      setInternalPage(0);
+    }
   };
 
   const handlePrevPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 0));
+    const newPage = Math.max(currentPage - 1, 0);
+    if (setCurrentPage) {
+      setCurrentPage(newPage);
+    } else {
+      setInternalPage(newPage);
+    }
     setDirection(-1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
+    const newPage = Math.min(currentPage + 1, totalPages - 1);
+    if (setCurrentPage) {
+      setCurrentPage(newPage);
+    } else {
+      setInternalPage(newPage);
+    }
     setDirection(1);
   };
 
   const handlePageClick = (pageIndex: number) => {
     setDirection(pageIndex > currentPage ? 1 : -1);
-    setCurrentPage(pageIndex);
+    if (setCurrentPage) {
+      setCurrentPage(pageIndex);
+    } else {
+      setInternalPage(pageIndex);
+    }
+  };
+
+  const handleResetFilters = () => {
+    if (onResetFilters) {
+      onResetFilters();
+    } else {
+      setInternalPosition("All Positions");
+      setInternalPage(0);
+    }
   };
 
   return (
-    <div className="w-full py-4 bg-white text-gray-900">
+    <div className="w-full py-2 sm:py-4 bg-white text-gray-900">
       <PositionFilters
         selectedPosition={selectedPosition}
         onPositionChange={handlePositionButtonClick}
@@ -433,6 +482,7 @@ export default function DraftTable({ data = draftData }: DraftTableProps) {
         paginatedData={paginatedData}
         currentPage={currentPage}
         selectedPosition={selectedPosition}
+        hideColumns={hideColumns}
       />
 
       <PaginationControls
@@ -443,6 +493,18 @@ export default function DraftTable({ data = draftData }: DraftTableProps) {
         onNextPage={handleNextPage}
         onPageClick={handlePageClick}
       />
+
+      {onResetFilters && (
+        <motion.button
+          onClick={handleResetFilters}
+          className="mt-2 sm:mt-4 border border-gray-300 text-blue-700 hover:bg-gray-100 hover:text-blue-800 hover:border-blue-800 px-2 sm:px-3 py-1 text-xs sm:text-sm transition-colors duration-200 cursor-pointer"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="Reset all filters"
+        >
+          Reset Filters
+        </motion.button>
+      )}
     </div>
   );
 }

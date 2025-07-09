@@ -29,11 +29,10 @@ export default function HOFRatingsPage() {
         >
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
-              Hall of Fame Ratings
+              Preps Ratings
             </h1>
             <p className="text-sm sm:text-base text-gray-600 mt-2">
-              Player rankings for Hall of Fame consideration, curated by NFL
-              Scouts
+              Player rankings for Preps consideration, curated by NFL Scouts
             </p>
           </div>
           <motion.button
@@ -50,7 +49,7 @@ export default function HOFRatingsPage() {
         <DraftTable
           data={hofData}
           onResetFilters={handleResetFilters}
-          hideColumns={["class"]} // Hide the 'class' column on this page
+          hideColumns={[]} // Hide the 'class' column on this page
           selectedPosition={selectedPosition}
           setSelectedPosition={setSelectedPosition}
           currentPage={currentPage}
